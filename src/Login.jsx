@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AuthProvider } from "./AuthContext";
 
 export default function Login() {
-  const { signIn } = useContext(AuthProvider);
+  const { signIn, setEnterOn } = useContext(AuthProvider);
 
   const handleLogIn = (e) => {
     e.preventDefault();
@@ -13,10 +13,10 @@ export default function Login() {
 
     signIn(email, password)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

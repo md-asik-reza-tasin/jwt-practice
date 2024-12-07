@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AuthProvider } from "./AuthContext";
 import { signOut } from "firebase/auth";
 import auth from "./firebase.config";
+import axios from "axios";
 
 export default function Register() {
   const { createUserInWebsite } = useContext(AuthProvider);
@@ -13,11 +14,17 @@ export default function Register() {
     const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const confirmpassword = e.target.confirmpassword.value;
+    // const confirmpassword = e.target.confirmpassword.value;
+
+    const oneUser = { username, email };
 
     createUserInWebsite(email, password)
       .then((result) => {
-        console.log(result.user);
+        axios
+          .post("http://localhost:5000/users", oneUser)
+          .then((res) => {
+            signOut(auth);
+            console.log(res.data)});
       })
       .catch((err) => {
         console.log(err.message);
